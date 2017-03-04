@@ -14,6 +14,7 @@ func main() {
 	dbHost := "localhost"
 	dbPort := "9432"
 	dbUrl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", dbUser, dbPass, dbHost, dbPort, dbName)
+	fmt.Println(dbUrl)
 
 	models.InitDB(dbUrl)
 

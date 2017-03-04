@@ -6,20 +6,9 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"time"
+
+	"hackupc2017w/carthumbing_api/models"
 )
-
-type Coord struct {
-	Lat float64 `json:"lat"`
-	Lon float64 `json:"lon"`
-}
-
-type RouteData struct {
-	UserUuid    string    `json:"user_id"`
-	Origin      Coord     `json:"origin"`
-	Destination Coord     `json:"destination"`
-	Date        time.Time `json:"date"`
-}
 
 func CreateSearch(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("---Create Search")
@@ -32,7 +21,7 @@ func CreateSearch(w http.ResponseWriter, r *http.Request) {
 	}
 	//s := string(body[:])
 	//fmt.Println(s)
-	var rd RouteData
+	var rd models.Route
 	err = json.Unmarshal(body, &rd)
 	if err != nil {
 		panic(err)
@@ -42,6 +31,12 @@ func CreateSearch(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+
+	id, err := models.CreateRoute(&rd)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(id)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusCreated)
 	w.Write(b)
