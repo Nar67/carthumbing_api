@@ -1,0 +1,16 @@
+version: '2'
+services:
+  carthumbing_db:
+    build: docker/db
+    ports:
+      - "9432:5432"
+  carthumbing_api:
+    image: hackupc2017w/carthumbing_api
+    build: .
+    environment:
+      DB_HOST: carthumbing_db
+      DB_PORT: 5432
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/go/src/hackupc2017wy/carthumbing
