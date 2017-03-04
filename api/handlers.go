@@ -10,8 +10,7 @@ import (
 	"hackupc2017w/carthumbing_api/models"
 )
 
-func CreateSearch(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("---Create Search")
+func CreateRoute(w http.ResponseWriter, r *http.Request, rt models.RouteType) {
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 	if err != nil {
 		panic(err)
@@ -19,8 +18,6 @@ func CreateSearch(w http.ResponseWriter, r *http.Request) {
 	if err := r.Body.Close(); err != nil {
 		panic(err)
 	}
-	//s := string(body[:])
-	//fmt.Println(s)
 	var rd models.Route
 	err = json.Unmarshal(body, &rd)
 	if err != nil {
@@ -31,7 +28,7 @@ func CreateSearch(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-
+	rd.Type = rt
 	id, err := models.CreateRoute(&rd)
 	if err != nil {
 		panic(err)
@@ -40,7 +37,16 @@ func CreateSearch(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusCreated)
 	w.Write(b)
-	//query := db.QueryRow("INSERT INTO searches (VALUES{UserID | $1}, {Origin | $2}, {Destination | $3}, {Date | $4})", Userid, Origin, Destination, Date)
+
+}
+
+func CreateSearch(w http.ResponseWriter, r *http.Request) {
+	CreateRoute(w, r, models.Search)
+}
+
+func CreatePublish(w http.ResponseWriter, r *http.Request) {
+	CreateRoute(w, r, models.Publish)
+
 }
 
 // func Publish(w http.ResponseWriter, r *http.Request) {

@@ -18,6 +18,18 @@ var routes = Routes{
 		"/api/search",
 		CreateSearch,
 	},
+	Route{
+		"CreatePublish",
+		"POST",
+		"/api/publish",
+		CreatePublish,
+	},
+	// Route{
+	// 	"GetRoutes"
+	// 	"GET"
+	// 	"/api/get_routes"
+	// 	GetRoutes
+	// },
 	// Route{
 	// 	"Publish",
 	// 	"POST",
