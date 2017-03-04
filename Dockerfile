@@ -6,7 +6,7 @@ ADD docker/wait-for-it.sh /usr/local/bin/wait-for-it.sh
 RUN mkdir -p /go/src/hackupc2017w/carthumbing_api
 WORKDIR /go/src/hackupc2017w/carthumbing_api
 
-COPY . /go/src/hackupc2017w/carthumbing_api
+ADD . /go/src/hackupc2017w/carthumbing_api
 
 
 RUN go get github.com/codegangsta/gin
