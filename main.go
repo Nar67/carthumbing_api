@@ -4,10 +4,15 @@ import (
 	"fmt"
 	"hackupc2017w/carthumbing_api/api"
 	"hackupc2017w/carthumbing_api/models"
+	"hackupc2017w/carthumbing_api/alg"
 	"net/http"
 )
 
 func main() {
+	alg.TestArcGisApi()
+	alg.TestRoute()
+	return
+
 	dbUser := "carthumbing_user"
 	dbPass := "ohphahRohfohZoh6"
 	dbName := "carthumbing_db"
